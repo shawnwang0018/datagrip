@@ -2,12 +2,11 @@ SELECT shop.SHOP_ID,
        shop.ID,
        shop.INNER_SHOP_CODE,
        shop.INTERFACE_SHOP_CODE,
-       shop.IS_DIRECT_OMS
-        ,
+       shop.IS_DIRECT_OMS ,
+       shop.code,
        shop.*
 FROM t_ma_tb_shop_info shop
 
-WHERE shop.ID = 150000041;
 WHERE shop.SHOP_ID LIKE  '%b+ab天猫旗舰店%';
 
 SELECT *
@@ -34,6 +33,21 @@ SELECT * FROM t_sys_shop_db t WHERE  t.shops LIKE '%150000041%';
 # BAPE天猫旗舰店 506759
 # Undefeated天猫旗舰店 506758
 
+
+5cm天猫旗舰店
+izzue天猫官方旗舰店
+b+ab天猫旗舰店
+新chocoolate天猫官方旗舰店
+UNDER GARDEN天猫旗舰店
+新it天猫官方旗舰店
+Camper天猫旗舰店
+it鞋品天猫旗舰店
+IT天猫店
+新Aape天猫官方旗舰店
+新fingercroxx天猫旗舰店
+carharttwip天猫旗舰店
+BAPE天猫旗舰店
+Undefeated天猫旗舰店
 
 
 

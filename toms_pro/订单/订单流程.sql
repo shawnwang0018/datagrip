@@ -11,7 +11,7 @@ FROM t_wf_workflow_task t,
      t_td_sales_order s
 WHERE t.CURRENT_NODE_NO = n.NODE_NO
   AND s.OMS_ORDER_CODE = t.REF_SLIP_CODE
-  AND t.REF_SLIP_CODE = '598761100877210003';
+  AND t.REF_SLIP_CODE = '985221731744627427';
 
 
 
@@ -36,11 +36,16 @@ SELECT t.id,
 FROM t_wf_workflow_task_log t,
      t_wf_workflow_node tn,
      t_wf_workflow_node fn
-WHERE t.TASK_ID = 1473456066
+WHERE t.TASK_ID = 1484864379
   AND t.FROM_NODE_NO = fn.NODE_NO
   AND t.TO_NODE_NO = tn.NODE_NO
+  AND fn.WORKFLOW_ID = 1
+  AND tn.WORKFLOW_ID = 1
 ORDER BY t.TRANSITION_TIME ASC;
 
+SELECT *
+FROM t_wf_workflow_task_log log
+WHERE log.task_id = 1484272693;
 
 
 SELECT *

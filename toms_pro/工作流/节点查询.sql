@@ -23,4 +23,4 @@ SELECT * FROM t_wf_workflow_node t WHERE t.WORKFLOW_ID = 3;
 
 SELECT t.*
 FROM t_wf_workflow_action_reg t
- WHERE t.ACTION_CLASS_NAME LIKE  '%SoTopLogisticsSendAction%';
+ WHERE t.ACTION_CLASS_NAME LIKE  '%SoResponse1006Action%';

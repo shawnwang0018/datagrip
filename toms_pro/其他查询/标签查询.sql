@@ -1,0 +1,1 @@
+SELECT * FROM t_bi_menu_item item WHERE item.NAME LIKE '%换货%';
