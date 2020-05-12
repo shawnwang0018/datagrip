@@ -6,7 +6,7 @@ SELECT
 FROM
 	t_tb_automated_after_sale t
 WHERE
-	t.TID = '202005071605118085';
+	t.TID = '799492931922895508';
 
 SELECT
     t.PROCESS_STATUS,
@@ -17,7 +17,7 @@ FROM
 ORDER BY t.CREATE_TIME DESC  LIMIT  100;
 SELECT *
 FROM t_ag_ship_cancel_detail t
-WHERE t.TID = '949308736029712614';
+WHERE t.TID = '799492931922895508';
 
 SELECT *
 FROM t_ag_ship_cancel_detail t

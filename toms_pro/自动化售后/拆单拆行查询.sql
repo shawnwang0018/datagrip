@@ -28,4 +28,11 @@ SELECT
 FROM
 	t_tb_automated_after_sale t
 WHERE
-	t.TID = '598364364261170104';
+	t.TID = '990000833250285132';
+
+SELECT * from t_top_refund;
+
+SELECT * FROM t_td_refund_direct t WHERE t.TID = '990000833250285132';
+
+SELECT * FROM t_ag_return_summary t WHERE t.PLATFORM_ORDER_CODE = '794470592044570676';
+
