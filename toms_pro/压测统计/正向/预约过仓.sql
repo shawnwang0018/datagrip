@@ -1,0 +1,11 @@
+SELECT DATE_FORMAT(t.UPDATE_TIME, '%Y-%c-%d %H-%i') dd, COUNT(*)
+FROM t_td_so_appointment_to_wh_task t
+WHERE (t.SHOP_ID not IN
+       (
+        11502, 11501, 11499, 176706, 176704, 11498, 11497, 176705, 176703, 11495, 11496, 176701, 176700, 176702, 11500,
+        11494, 11493, 326725, 326726, 176707
+           ) OR t.SHOP_ID IS NULL)
+  AND t.process_status = 10
+  AND t.UPDATE_TIME > '2020-6-16 00:00:00'
+GROUP BY dd
+ORDER BY dd DESC;

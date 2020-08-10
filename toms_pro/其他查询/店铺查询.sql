@@ -7,7 +7,9 @@ SELECT shop.SHOP_ID,
        shop.*
 FROM t_ma_tb_shop_info shop
 
-WHERE shop.SHOP_ID LIKE  '%b+ab天猫旗舰店%';
+WHERE shop.ID = 8645;
+
+WHERE shop.SHOP_ID LIKE  '%S.TDupont天猫官方旗舰店%';
 
 SELECT *
 FROM t_ma_shop_wh t

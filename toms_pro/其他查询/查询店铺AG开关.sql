@@ -8,8 +8,10 @@ SELECT
 FROM
 	t_ma_tb_shop_info t
 WHERE
-      t.ID = 521760;
+      t.ID = 586764;
 	t.SHOP_NAME LIKE '%测试%';
 
 SELECT * FROM t_sys_shop_db t WHERE t.SHOPS LIKE '%521760%';
+
+SELECT * FROM  t_tb_automated_after_sale t WHERE  t.TID = '1149320707040885267';
 

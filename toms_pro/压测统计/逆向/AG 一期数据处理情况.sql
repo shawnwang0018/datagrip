@@ -78,10 +78,15 @@ SELECT
 FROM
 	t_ag_ship_cancel_detail t
 WHERE
-	t.CREATE_TIME >= '2018-5-31 00:00:00'
+	t.CREATE_TIME >= '2020-6-16 00:00:00'
 AND t.`STATUS` = 10
 GROUP BY
 	DATE_FORMAT(
+		t.UPDATE_TIME,
+		'%Y-%c-%d %H:%i'
+	)
+ORDER BY
+DATE_FORMAT(
 		t.UPDATE_TIME,
 		'%Y-%c-%d %H:%i'
 	);

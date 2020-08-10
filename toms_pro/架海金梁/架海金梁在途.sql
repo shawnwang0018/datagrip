@@ -51,3 +51,9 @@ SELECT inv.ID               AS wmsInvLogId,
 FROM t_wms_inv_log inv
          LEFT JOIN t_wms_sku_sn sn ON inv.ID = sn.WMS_INV_LOG_ID
 WHERE inv.WMS_ORDER_STATUS_ID = 367049;
+
+
+SELECT * FROM t_td_sales_order t WHERE t.PLATFORM_ORDER_CODE_N = '306213314868968905';
+
+SELECT * FROM t_ma_inventory_correction t WHERE  t.REF_ID = 4699480;
+

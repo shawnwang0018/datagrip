@@ -1,153 +1,240 @@
 -- 创单
-select DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) 创单,COUNT(1) from t_td_sales_order a where a.ERP_SHOP_CODE in (
-11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707
-) and a.CREATE_TIME >= '2019-10-17'
-GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) 
-order BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) desc ;
-
-
+SELECT DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H%i') 创单, COUNT(1)
+FROM t_td_sales_order a
+WHERE a.ERP_SHOP_CODE NOT IN (
+                          11502, 11501, 11499, 176706, 176704, 11498, 11497, 176705, 176703, 11495, 11496, 176701,
+                          176700, 176702, 11500, 11494, 11493, 326725, 326726, 176707
+    )
+  AND a.CREATE_TIME >= '2020-6-15 00:00'
+GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H%i')
+ORDER BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H%i') DESC;
 
 
 -- 过路由
-select DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) 过路由,COUNT(1) from t_send_wms a where a.SHOP_ID in (
-11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707
-) and a.CREATE_TIME >= '2019-10-15'
-and a.MSG_TYPE = 'soRoute'
-GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) 
-order BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) desc ;
+SELECT DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H') 过路由, COUNT(1)
+FROM t_send_wms a
+WHERE a.SHOP_ID IN (
+                    11502, 11501, 11499, 176706, 176704, 11498, 11497, 176705, 176703, 11495, 11496, 176701, 176700,
+                    176702, 11500, 11494, 11493, 326725, 326726, 176707
+    )
+  AND a.CREATE_TIME >= '2019-10-15'
+  AND a.MSG_TYPE = 'soRoute'
+GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H')
+ORDER BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H') DESC;
 
 -- 路由反馈
-SELECT DATE_FORMAT(t.PROCESS_TIME, '%Y-%c-%d %H' ) dd,COUNT(*) from t_split_order_head t where t.INPUT_TIME >'2019-10-15' and ( t.SHOP_ID in
-(
-11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707
-
-) or t.SHOP_ID is null) and t GROUP BY dd; 
+SELECT DATE_FORMAT(t.PROCESS_TIME, '%Y-%c-%d %H') dd, COUNT(*)
+FROM t_split_order_head t
+WHERE t.INPUT_TIME > '2019-10-15'
+  AND (t.SHOP_ID IN
+       (
+        11502, 11501, 11499, 176706, 176704, 11498, 11497, 176705, 176703, 11495, 11496, 176701, 176700, 176702, 11500,
+        11494, 11493, 326725, 326726, 176707
+           ) OR t.SHOP_ID IS NULL)
+  AND t
+GROUP BY dd;
 
 
 -- 过仓
-select DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) 过仓wms4,COUNT(1) from t_send_wms a,t_td_sales_order o where a.SHOP_ID in (
-11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707
-) and a.CREATE_TIME >= '2019-10-15'
-and o.PLATFORM_ORDER_CODE_N = a.KEY_CODE
-and o.IS_DIRECT_WMS_ORDER = 1
-and a.MSG_TYPE = 'SO'
-GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) 
-order BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) desc ;
+SELECT DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H') 过仓wms4, COUNT(1)
+FROM t_send_wms a,
+     t_td_sales_order o
+WHERE a.SHOP_ID IN (
+                    11502, 11501, 11499, 176706, 176704, 11498, 11497, 176705, 176703, 11495, 11496, 176701, 176700,
+                    176702, 11500, 11494, 11493, 326725, 326726, 176707
+    )
+  AND a.CREATE_TIME >= '2019-10-15'
+  AND o.PLATFORM_ORDER_CODE_N = a.KEY_CODE
+  AND o.IS_DIRECT_WMS_ORDER = 1
+  AND a.MSG_TYPE = 'SO'
+GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H')
+ORDER BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H') DESC;
 
 
-select DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) 过仓wms3,COUNT(1) from t_send_wms a,t_td_sales_order o where a.SHOP_ID in (
-176705
-) and a.CREATE_TIME >= '2019-10-15'
-and o.PLATFORM_ORDER_CODE_N = a.KEY_CODE
-and o.IS_DIRECT_WMS_ORDER = 6
-and a.MSG_TYPE = 'SO'
-GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) 
-order BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) desc ;
+SELECT DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H') 过仓wms3, COUNT(1)
+FROM t_send_wms a,
+     t_td_sales_order o
+WHERE a.SHOP_ID IN (
+    176705
+    )
+  AND a.CREATE_TIME >= '2019-10-15'
+  AND o.PLATFORM_ORDER_CODE_N = a.KEY_CODE
+  AND o.IS_DIRECT_WMS_ORDER = 6
+  AND a.MSG_TYPE = 'SO'
+GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H')
+ORDER BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H') DESC;
 
-select DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) UA过仓,COUNT(1) from t_send_wms a,t_td_sales_order o where a.SHOP_ID = 176701
- and a.CREATE_TIME >= '2019-10-15'
-and o.PLATFORM_ORDER_CODE_N = a.KEY_CODE
-and o.IS_DIRECT_WMS_ORDER = 6
-and a.MSG_TYPE = 'DELIVERY'
-GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) 
-order BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) desc ;
+SELECT DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H') UA过仓, COUNT(1)
+FROM t_send_wms a,
+     t_td_sales_order o
+WHERE a.SHOP_ID = 176701
+  AND a.CREATE_TIME >= '2019-10-15'
+  AND o.PLATFORM_ORDER_CODE_N = a.KEY_CODE
+  AND o.IS_DIRECT_WMS_ORDER = 6
+  AND a.MSG_TYPE = 'DELIVERY'
+GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H')
+ORDER BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H') DESC;
 
-select DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) skxLF,COUNT(1) from t_send_wms a,t_td_sales_order o where a.SHOP_ID = 176701
- and a.CREATE_TIME >= '2019-10-11'
-and o.PLATFORM_ORDER_CODE_N = a.KEY_CODE
-and o.IS_DIRECT_WMS_ORDER = 6
-and a.MSG_TYPE = 'SO'
-GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) 
-order BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) desc ;
+SELECT DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H') skxLF, COUNT(1)
+FROM t_send_wms a,
+     t_td_sales_order o
+WHERE a.SHOP_ID = 176701
+  AND a.CREATE_TIME >= '2019-10-11'
+  AND o.PLATFORM_ORDER_CODE_N = a.KEY_CODE
+  AND o.IS_DIRECT_WMS_ORDER = 6
+  AND a.MSG_TYPE = 'SO'
+GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H')
+ORDER BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H') DESC;
 
-select DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) skxQH,COUNT(1) from t_send_wms a,t_td_sales_order o where a.SHOP_ID = 176701
- and a.CREATE_TIME >= '2019-10-11'
-and o.PLATFORM_ORDER_CODE_N = a.KEY_CODE
-and o.IS_DIRECT_WMS_ORDER = 16
-and a.MSG_TYPE = 'SO'
-GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) 
-order BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) desc ;
-
-
-select DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) 刷尾款,COUNT(1) from t_so_step_payment_log a where a.SHOP_ID in (
-11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726
-) and a.CREATE_TIME > '2019-08-31'
-and a.PROCESS_STATUS = 10
-GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) 
-order BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) desc ;
-
-
-select DATE_FORMAT(t.input_time, '%Y-%c-%d %H' ),count(1) from t_split_order_head t where t.SHOP_ID in (
-11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726
-) and t.INPUT_TIME >= '2019-10-15'  group by DATE_FORMAT(t.input_time, '%Y-%c-%d %H' );
-
-SELECT DATE_FORMAT(t., '%Y-%c-%d %H' ) 外包仓在途反馈,COUNT(*) from t_wms_order_status t where t.INPUT_TIME >'2019-10-11'  and ( t.SHOP_ID in
-(
-11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707
-) or t.SHOP_ID is null) GROUP BY DATE_FORMAT(t.INPUT_TIME, '%Y-%c-%d %H' );
+SELECT DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H') skxQH, COUNT(1)
+FROM t_send_wms a,
+     t_td_sales_order o
+WHERE a.SHOP_ID = 176701
+  AND a.CREATE_TIME >= '2019-10-11'
+  AND o.PLATFORM_ORDER_CODE_N = a.KEY_CODE
+  AND o.IS_DIRECT_WMS_ORDER = 16
+  AND a.MSG_TYPE = 'SO'
+GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H')
+ORDER BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H') DESC;
 
 
-select t.AMOUNT_AFTER_DISCOUNT,t.* from t_td_sales_order t where t.PLATFORM_ORDER_CODE = '5555550126810001';
+SELECT DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H') 刷尾款, COUNT(1)
+FROM t_so_step_payment_log a
+WHERE a.SHOP_ID IN (
+                    11502, 11501, 11499, 176706, 176704, 11498, 11497, 176705, 176703, 11495, 11496, 176701, 176700,
+                    176702, 11500, 11494, 11493, 326725, 326726
+    )
+  AND a.CREATE_TIME > '2019-08-31'
+  AND a.PROCESS_STATUS = 10
+GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H')
+ORDER BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H') DESC;
 
 
-select t.shop_id,t.* from t_mq_so_log t where t.`code` = '5555550126810001';
+SELECT DATE_FORMAT(t.input_time, '%Y-%c-%d %H'), count(1)
+FROM t_split_order_head t
+WHERE t.SHOP_ID IN (
+                    11502, 11501, 11499, 176706, 176704, 11498, 11497, 176705, 176703, 11495, 11496, 176701, 176700,
+                    176702, 11500, 11494, 11493, 326725, 326726
+    )
+  AND t.INPUT_TIME >= '2019-10-15'
+GROUP BY DATE_FORMAT(t.input_time, '%Y-%c-%d %H');
+
+SELECT DATE_FORMAT(t., '%Y-%c-%d %H') 外包仓在途反馈, COUNT(*)
+FROM t_wms_order_status t
+WHERE t.INPUT_TIME > '2019-10-11'
+  AND (t.SHOP_ID IN
+       (
+        11502, 11501, 11499, 176706, 176704, 11498, 11497, 176705, 176703, 11495, 11496, 176701, 176700, 176702, 11500,
+        11494, 11493, 326725, 326726, 176707
+           ) OR t.SHOP_ID IS NULL)
+GROUP BY DATE_FORMAT(t.INPUT_TIME, '%Y-%c-%d %H');
 
 
-select * from t_wf_workflow_task  t where t.REF_SLIP_CODE = '5555550126810001';
-
-SELECT * FROM t_receive_ag_log t WHERE MSG_TYPE = 'qimen.taobao.rdc.aligenius.order.abort' AND CONTENT LIKE '%5555550126810001%' AND CREATE_TIME >= '2019-08-29' ORDER BY ID DESC LIMIT 100;
-
-
-
-SELECT * FROM t_ag_ship_cancel_detail t where TID = '5555550126810001' ORDER BY ID DESC LIMIT 100;
+SELECT t.AMOUNT_AFTER_DISCOUNT, t.*
+FROM t_td_sales_order t
+WHERE t.PLATFORM_ORDER_CODE = '5555550126810001';
 
 
+SELECT t.shop_id, t.*
+FROM t_mq_so_log t
+WHERE t.`code` = '5555550126810001';
 
 
-select * from  t_ag_ship_cancel_detail t where t.`STATUS` = 0 limit 10;
+SELECT *
+FROM t_wf_workflow_task t
+WHERE t.REF_SLIP_CODE = '5555550126810001';
 
-SELECT * FROM t_sys_task_config t WHERE t.CLASS_NAME = 'com.jumbo.tmalloms.manager.taobao.ag.ParseCancelCommandTaskManager';
-
-
-SELECT * FROM t_sys_task_config t WHERE t.CLASS_NAME = 'com.jumbo.tmalloms.manager.taobao.ag.ParseCancelCommandTaskManager';
-
-
-SELECT * FROM t_sys_task_config t WHERE t.CLASS_NAME like '%AgCancelDeliveryToMqTaskManager%';
-
-
-select 
-
-update t_ag_ship_cancel_detail set `STATUS` = 0 where ID = 9453318 and TID = '5555550126810001';
-
-select * from t_td_refund_application t where t.SO_ID = 906072273;
+SELECT *
+FROM t_receive_ag_log t
+WHERE MSG_TYPE = 'qimen.taobao.rdc.aligenius.order.abort'
+  AND CONTENT LIKE '%5555550126810001%'
+  AND CREATE_TIME >= '2019-08-29'
+ORDER BY ID DESC
+LIMIT 100;
 
 
 
+SELECT *
+FROM t_ag_ship_cancel_detail t
+WHERE TID = '5555550126810001'
+ORDER BY ID DESC
+LIMIT 100;
 
 
-INSERT INTO `t_td_rf_autotask_info` (`RF_ID`, `TASK_ID`, `SYNC_TO_PACS_TIME`, `SHOP_ID`, `PROCESS_STATUS`, `RETRY_DATE`, `RETRY_COUNT`, `ERR_MSG`) VALUES ('29137155', '194122800', '2019-07-13 15:14:31', '10896', '10', '2019-07-13 15:44:31', '1', NULL);
+
+SELECT *
+FROM t_ag_ship_cancel_detail t
+WHERE t.`STATUS` = 0
+LIMIT 10;
+
+SELECT *
+FROM t_sys_task_config t
+WHERE t.CLASS_NAME = 'com.jumbo.tmalloms.manager.taobao.ag.ParseCancelCommandTaskManager';
+
+
+SELECT *
+FROM t_sys_task_config t
+WHERE t.CLASS_NAME = 'com.jumbo.tmalloms.manager.taobao.ag.ParseCancelCommandTaskManager';
+
+
+SELECT *
+FROM t_sys_task_config t
+WHERE t.CLASS_NAME LIKE '%AgCancelDeliveryToMqTaskManager%';
+
+
+SELECT
+
+UPDATE t_ag_ship_cancel_detail
+SET `STATUS` = 0
+WHERE ID = 9453318
+  AND TID = '5555550126810001';
+
+SELECT *
+FROM t_td_refund_application t
+WHERE t.SO_ID = 906072273;
 
 
 
+INSERT INTO `t_td_rf_autotask_info` (`RF_ID`, `TASK_ID`, `SYNC_TO_PACS_TIME`, `SHOP_ID`, `PROCESS_STATUS`, `RETRY_DATE`,
+                                     `RETRY_COUNT`, `ERR_MSG`)
+VALUES ('29137155', '194122800', '2019-07-13 15:14:31', '10896', '10', '2019-07-13 15:44:31', '1', NULL);
 
 
 
-select * from t_ma_ag_shop_sys s where s.SHOP_ID in( 2042,11498)
+SELECT *
+FROM t_ma_ag_shop_sys s
+WHERE s.SHOP_ID IN (2042, 11498);
 
-select * from t_ma_ag_shop_sys  t where t.SHOP_ID = 11498;
+SELECT *
+FROM t_ma_ag_shop_sys t
+WHERE t.SHOP_ID = 11498;
 
-DELETE from t_ma_ag_shop_sys where ID = 334001
+DELETE
+FROM t_ma_ag_shop_sys
+WHERE ID = 334001
 
-select t.OPEN_AG_REFUND,t.* from t_ma_tb_shop_info t where t.ID = 11498;
+SELECT t.OPEN_AG_REFUND, t.*
+FROM t_ma_tb_shop_info t
+WHERE t.ID = 11498;
 
-SELECT * FROM t_ag_ship_cancel_detail t where TID = '5555550126810001' ORDER BY ID DESC LIMIT 100;
+SELECT *
+FROM t_ag_ship_cancel_detail t
+WHERE TID = '5555550126810001'
+ORDER BY ID DESC
+LIMIT 100;
 
 
-select * from t_receive_ag_log t where t.SHOP_ID = 11498 and t.`STATUS` = 0 ;
+SELECT *
+FROM t_receive_ag_log t
+WHERE t.SHOP_ID = 11498
+  AND t.`STATUS` = 0;
 
 
 -- update t_sys_task_config set IS_AVAILABLE = 1 where ID in (210283,244240,244276) and CLASS_NAME like '%AgCancelDeliveryToMqTaskManager%'
- 
+
 
 -- INSERT INTO `t_ma_ag_shop_sys` (`SHOP_ID`, `TRANS_FEE_PAYMENT_TYPE`, `INV_SKU_STATUS`, `IS_INCLUDES_FREEBIES`, `OUTBOUND_WH_CODE`, `CONFIG_TYPE`, `MAX_REFUND_AMOUNT`, `RETURN_DESC`) VALUES ('11498', NULL, NULL, '0', NULL, '2', '50000.00', NULL);
+
+
+
 

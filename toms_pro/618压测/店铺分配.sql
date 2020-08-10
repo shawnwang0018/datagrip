@@ -54,5 +54,6 @@ AND rf.STATUS = "SUCCESS"
 ORDER BY direct.id
     LIMIT  200;
 
+SELECT t.ID,t.SHOP_ID,t.* FROM t_ma_tb_shop_info t WHERE t.SHOP_ID LIKE '%%';
 
 

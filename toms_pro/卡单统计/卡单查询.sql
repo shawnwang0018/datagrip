@@ -16,8 +16,7 @@ AND wh.WH_CODE = S.WAREHOUSE_CODE
 AND wh.shop_id = s.erp_shop_code
 AND date_add(t.enter_time,INTERVAL 30 MINUTE ) < SYSDATE()
 -- AND t.enter_time<='2020-02-27 21:20'
-AND s.TB_PAYMENT_TIME >= '2020-02-27'
-AND s.CREATE_TIME >= '2020-04-25' -- AND S.PLATFORM_ORDER_CODE_N='635602339135704753'
+AND s.CREATE_TIME >= '2020-06-16' -- AND S.PLATFORM_ORDER_CODE_N='635602339135704753'
 AND t.CURRENT_NODE_NO IN (2, 3, 8, 15, 11, 12, 22, 24, 114) -- AND t.CURRENT_NODE_NO IN (114) -- 路由反馈
 AND info.ID NOT IN (
 '11494',
@@ -49,4 +48,6 @@ order by count desc;
 SELECT   count(1) FROM t_wf_workflow_task t WHERE t.CURRENT_NODE_NO = 2 AND t.ENTER_TIME >= '2020-4-1' AND t.REF_SLIP_SHOP_ID = 471773;
 
 
+SELECT * FROM t_td_so_appointment_to_wh_task t WHERE;
 
+SELECT * FROM t_mq_so_log t WHERE t.code in ("1007400896697734471");

@@ -1,0 +1,9 @@
+SELECT DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H:%i') skxLF, COUNT(1)
+FROM t_send_wms a,
+     t_td_sales_order o
+WHERE a.SHOP_ID != 176701
+  AND a.CREATE_TIME >= '2020-06-16 00:00:00'
+  AND o.PLATFORM_ORDER_CODE_N = a.KEY_CODE
+  AND a.MSG_TYPE = 'DELIVERY'
+GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H:%i')
+ORDER BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H:%i') DESC;
