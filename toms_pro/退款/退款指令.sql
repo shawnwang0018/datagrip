@@ -1,0 +1,1 @@
+SELECT * FROM t_td_refund_direct t WHERE  t.TID = '';
