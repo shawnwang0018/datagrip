@@ -20,28 +20,6 @@ WHERE s.OMS_ORDER_CODE = t.REF_SLIP_CODE
   AND s.TB_PAYMENT_TIME >= '2020-6-1'
   AND s.CREATE_TIME >= '2020-6-1'                            -- AND S.PLATFORM_ORDER_CODE_N='635602339135704753'
   AND t.CURRENT_NODE_NO IN (2, 3, 8, 11, 12, 22, 24, 114, 15) -- AND t.CURRENT_NODE_NO IN (114) -- 路由反馈
-  AND info.ID NOT IN (
-                      '11494',
-                      '11495',
-                      '11496',
-                      '11497',
-                      '11498',
-                      '11499',
-                      '11500',
-                      '11501',
-                      '11502',
-                      '176700',
-                      '176701',
-                      '176702',
-                      '176703',
-                      '176704',
-                      '176705',
-                      '176706',
-                      '176707',
-                      '326725',
-                      '326726',
-                      '326728',
-                      '4062')
   AND n.WORKFLOW_ID = 1                                       -- AND s.TB_PAYMENT_TIME > DATE_SUB(SYSDATE(),INTERVAL 2 DAY)
 GROUP BY n.`NAME`, wh.SYSTEM_CODE, DIRECT, s.SPECIAL_TYPE
 ORDER BY count DESC;

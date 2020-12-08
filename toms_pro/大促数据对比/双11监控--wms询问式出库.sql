@@ -1,0 +1,16 @@
+SELECT
+	DATE_FORMAT(
+		a.CREATE_TIME,
+		'%Y-%c-%d %H-%i'
+	) dd,
+	COUNT(1)
+FROM
+	t_send_hub_msg a
+WHERE
+	 a.CREATE_TIME >= '2020-11-01 00:00:00'
+AND MSG_TYPE = 'msg-02'
+AND a.SYNC_STATUS IN (4, 5)
+GROUP BY
+	dd
+ORDER BY
+	dd DESC;

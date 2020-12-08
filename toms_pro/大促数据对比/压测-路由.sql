@@ -1,0 +1,52 @@
+-- 过路由
+select DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H%i') 过路由,COUNT(1) from t_send_wms a where a.SHOP_ID in (
+11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707
+) and a.CREATE_TIME >= '2020-10-15 18:30'
+and a.MSG_TYPE = 'soRoute'
+GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H%i' ) 
+order BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H%i' ) desc ;
+
+SELECT * from t_send_wms a where a.KEY_CODE = '5555552051382142'; 
+
+select DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) 过路由,COUNT(1) from t_send_wms a where a.SHOP_ID in (
+11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707
+) and a.CREATE_TIME >= '2020-10-15 18:00'
+and a.MSG_TYPE = 'soRoute'
+GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) 
+order BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) desc ;
+
+SELECT * from t_td_sales_order t where t.ID = 1782059654;
+
+select DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) 过路由,COUNT(1) from t_send_wms a where a.SHOP_ID in (
+11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707
+) and a.CREATE_TIME >= '2020-10-10'
+and a.MSG_TYPE = 'soRoute'
+GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) 
+order BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) desc ;
+
+SELECT count(1) from t_split_order_head t where t.INPUT_TIME > '2020-09-27 14:00:00' and t.PROCESS_STATUS = 0
+and t.SHOP_ID in (11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707
+);
+
+SELECT * from t_ma_shop_wh t where t.SHOP_ID in (11495);
+
+SELECT DATE_FORMAT(t.process_time, '%Y-%c-%d %H-%i' ) dd,COUNT(*) from t_split_order_head t where t.INPUT_TIME >'2020-10-05 10:00:00' and ( t.SHOP_ID in
+(
+11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707
+) or t.SHOP_ID is null) and t.process_status = 10  GROUP BY dd ORDER BY dd desc; 
+
+SELECT count(1) from t_split_order_head t where t.PROCESS_STATUS = 0;
+
+SELECT DATE_FORMAT(t.process_time, '%Y-%c-%d %H' ) dd,COUNT(*) from t_split_order_head t where t.INPUT_TIME >'2020-10-15 18:00:00' and ( t.SHOP_ID in
+(
+11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707
+) or t.SHOP_ID is null) and t.process_status = 10  GROUP BY dd ORDER BY dd desc; 
+
+SHOW CREATE TABLE t_retry_cancel_cmd;
+SELECT * from t_ma_shop_wh t where t.SHOP_ID in (176703);
+
+SELECT * from t_top_round_timer;
+
+select DATE_FORMAT(t.input_time, '%Y-%c-%d %H' ) dd,count(1) from t_split_order_head t where t.SHOP_ID in (
+11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726
+) and t.INPUT_TIME >= '2020-09-27'  group by dd ORDER BY dd desc;

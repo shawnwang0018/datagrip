@@ -2,3 +2,29 @@ select  *  from  t_send_hub_msg  i where i.TID in ('946915715802184106');
 SELECT *
 FROM t_td_trade t
 WHERE t.PLATFORM_ORDER_CODE = '946915715802184106';
+
+
+
+SELECT t.TID,t.OID,so.PLATFORM_ORDER_CODE_N,t.CREATE_TIME,so.AMOUNT_AFTER_DISCOUNT,so.CREATE_TIME,so.IS_DIRECT_WMS_ORDER
+FROM t_send_hub_msg t,t_td_sales_order so
+WHERE
+    t.OID = so.ID
+      AND
+      t.CREATE_TIME >= '2020-6-18'
+  AND MSG_TYPE = 'msg-02'
+AND t.ERROR_CODE = 'CD06';
+
+
+SELECT * FROM  t_qimen_wmsinfo_relation;
+
+SELECT *
+FROM t_send_hub_msg t
+WHERE t.CREATE_TIME >= '2020-9-1'
+ORDER BY ID DESC
+LIMIT 100;
+
+
+
+ALTER TABLE  `t_td_return_application_line`
+ADD COLUMN `BMS_RETURN_CODE` VARCHAR(100) DEFAULT NULL  COMMENT 'BMS退货单单号',
+ADD INDEX `IDX_BMS_RETURN_CODE` (`BMS_RETURN_CODE` ASC);

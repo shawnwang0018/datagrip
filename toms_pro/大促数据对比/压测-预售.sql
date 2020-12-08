@@ -1,0 +1,94 @@
+-- 
+select DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H:%i' ) 刷尾款,COUNT(1) from t_so_step_payment_log a where a.SHOP_ID in (
+11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726
+) and a.CREATE_TIME > '2020-10-10 13:30:00'
+ and a.PROCESS_STATUS = 10
+GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H:%i' ) 
+order BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H:%i' ) desc ;
+
+select DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) dd,COUNT(1) from t_so_step_payment_log a where a.SHOP_ID in (
+11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726
+) and a.CREATE_TIME > '2020-10-10 10:30:00'
+ and a.PROCESS_STATUS = 10
+GROUP BY dd
+order BY dd desc ;
+
+SELECT SPECIAL_TYPE, count(1) from t_td_sales_order t where t.ERP_SHOP_CODE in (
+11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726
+) and t.CREATE_TIME > '2020-09-28' and t.SPECIAL_TYPE in (11,12) GROUP BY SPECIAL_TYPE;
+
+-- 
+select DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H:%i' ) dd,COUNT(1) from t_so_step_payment_log a where a.SHOP_ID in (
+11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726
+) and a.CREATE_TIME > '2020-10-02 13:30:00'
+ and a.PROCESS_STATUS = 10
+GROUP BY dd 
+order BY dd desc ;
+
+SELECT * from t_sys_shop_db;
+SELECT count(1) from t_td_sales_order t where t.ERP_SHOP_CODE in (176701) and t.CREATE_TIME > '2020-09-27';
+SELECT * from t_so_step_payment_log t where t.PROCESS_STATUS = 10 and t.SHOP_ID in (
+11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726
+) and t.CREATE_TIME > '2020-09-19 19:00:00';
+
+select DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H:%i' ) 通知发货,COUNT(1) from t_send_wms a,t_td_sales_order o where a.SHOP_ID in (
+11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707
+) and a.CREATE_TIME >= '2020-10-05 10:30:00'
+and o.PLATFORM_ORDER_CODE_N = a.KEY_CODE
+and a.MSG_TYPE = 'SO_PAY'
+GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H:%i' ) 
+order BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H:%i' ) desc;
+
+select DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) 通知发货,COUNT(1) from t_send_wms a,t_td_sales_order o where a.SHOP_ID in (
+11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707
+) and a.CREATE_TIME >= '2020-10-10 13:30:00'
+and o.PLATFORM_ORDER_CODE_N = a.KEY_CODE
+and a.MSG_TYPE = 'SO_PAY'
+GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) 
+order BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H' ) desc;
+
+select a.SHOP_ID, COUNT(1) from t_send_wms a,t_td_sales_order o where a.SHOP_ID in (
+11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707
+) and a.CREATE_TIME >= '2020-09-15'
+and o.PLATFORM_ORDER_CODE_N = a.KEY_CODE
+and a.MSG_TYPE = 'SO_PAY'
+GROUP BY a.SHOP_ID 
+order BY a.SHOP_ID ;
+SELECT * from t_sys_task_config t where t.METHOD_NAME = 'syncPayStatus2Wh';
+
+SELECT count(1) from t_td_ras_autotask_info  t ;
+
+select DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H:%i' ) 刷尾款,COUNT(1) from t_so_step_wh_queue a where a.SHOP_ID not in (
+11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726
+) and a.CREATE_TIME > '2020-08-28'
+and a.PROCESS_STATUS = 10
+GROUP BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H:%i' ) 
+order BY DATE_FORMAT(a.CREATE_TIME, '%Y-%c-%d %H:%i' ) desc ;
+
+SELECT SHOP_ID, count(1) from t_so_step_payment_log t where t.SHOP_ID in (
+11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726
+) and t.CREATE_TIME > '2020-10-10' GROUP BY SHOP_ID;
+
+SELECT * from t_td_tally_order_to_pacs t where t.REF_SLIP_CODE = '1259750991786509875' and t.INPUT_TIME > '2020-09-21';
+SELECT * from t_ma_server_queue where `SERVER` = 'rmq';
+SELECT * from t_sys_shop_db;
+-- 4a884965-9ce2-4c5f-bad8-06c0ba9b0f1c
+SELECT * from t_send_pacs_final_msg t where t.ORDER_CODE = '1259750991786509875' and t.CREATE_TIME > '2020-09-01';
+
+
+select 
+					  t.ID,
+					  t.SHOP_ID,
+					  t.SO_ID,
+					  t.SYNC_COUNT,
+					  i.INTERFACE_SHOP_CODE interfaceShopCode,
+					  i.IS_OPEN_QIMEN isOpenQimen,
+					  t.CREATE_TIME,
+					  t.IS_AMOUNT_CHANGE
+					from t_so_step_wh_queue t join t_ma_tb_shop_info i on i.id=t.shop_id
+					  where t.SHOP_ID in ()
+					  AND t.PROCESS_STATUS = 0
+					  AND t.NEXT_SYNC_DATE < NOW()
+					  limit :count
+
+SELECT t.IS_DIRECT_WMS_ORDER, t.* from t_td_sales_order t where t.ID = 1765275537 and t.ERP_SHOP_CODE = 176703;

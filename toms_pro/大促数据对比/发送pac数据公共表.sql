@@ -1,0 +1,98 @@
+SELECT
+					m.ID,
+					m.SYNC_COUNTER,
+                    m.MSG_TYPE,
+                    m.EXT1,
+                    m.SHOP_ID,
+                    m.CREATE_TIME,
+                    m.SHOP_CODE
+				FROM
+					t_send_pacs_mq_msg m
+				WHERE
+					m.SYNC_STATUS in (0,1) AND (NEXT_SYNC_TIME is null or NEXT_SYNC_TIME <= NOW()) 
+and SHOP_ID not in (11502,11501,11499,176706,176704,11498,11497,176705,176703,
+11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707)
+				ORDER BY
+					m.ID
+				LIMIT 3000;
+
+SELECT
+					m.ID,
+					m.SYNC_COUNTER,
+                    m.MSG_TYPE,
+                    m.EXT1,
+                    m.SHOP_ID,
+                    m.CREATE_TIME,
+                    m.SHOP_CODE,
+                    m.SYNC_TIME
+				FROM
+					t_send_pacs_mq_msg m
+				WHERE
+					m.SYNC_STATUS in (0,1) AND (NEXT_SYNC_TIME is null or NEXT_SYNC_TIME <= NOW()) 
+				ORDER BY
+					m.ID
+				LIMIT 3000;
+
+SELECT count(1) from t_send_pacs_mq_msg m WHERE
+					m.SYNC_STATUS in (0,1) AND (NEXT_SYNC_TIME is null or NEXT_SYNC_TIME <= NOW()) ;
+
+SELECT count(1) from t_send_pacs_mq_msg;
+
+SELECT count(1) from t_send_pacs_mq_msg t where t.SHOP_ID in (
+11502,11501,11499,176706,176704,11498,11497,176705,176703,
+11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707
+);
+
+SELECT count(1) from t_send_pacs_mq_msg t where t.CREATE_TIME > '2020-08-01' and
+t.SHOP_ID in (
+11502,11501,11499,176706,176704,11498,11497,176705,176703,
+11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707
+);
+
+SELECT count(1) from t_send_pacs_mq_msg t where t.CREATE_TIME < '2020-08-01' and t.CREATE_TIME > '2019-08-01'
+and t.SHOP_ID in (
+11502,11501,11499,176706,176704,11498,11497,176705,176703,
+11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707
+);
+
+delete from t_send_pacs_mq_msg where SHOP_ID in (11502,11501,11499,176706,176704,11498,11497,176705,176703,
+11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707
+);
+
+SELECT count(1) from t_send_pacs_mq_msg t where t.CREATE_TIME > '2020-10-02 13' and t.SHOP_ID in (
+11502,11501,11499,176706,176704,11498,11497,176705,176703,
+11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707
+) and t.SYNC_TIME > '2020-10-02 13';
+
+SELECT * from t_send_pacs_mq_msg t where t.CREATE_TIME > '2020-09-30 17:10:00' ORDER BY t.create_time desc limit 100;
+
+SELECT
+					count(1)
+				FROM
+					t_send_pacs_mq_msg m
+				WHERE
+					m.SYNC_STATUS in (0,1) 
+-- AND (NEXT_SYNC_TIME is null or NEXT_SYNC_TIME <= NOW())
+				;
+SELECT count(1) from t_td_rf_autotask_info t where t.SYNC_TO_PACS_TIME > '2020-09-19' and SHOP_ID in (
+11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,17670
+) and t.PROCESS_STATUS = 10;
+
+SELECT * from t_ma_server_queue;
+
+SELECT
+
+					DATE_FORMAT(rast.SYNC_TO_PACS_TIME, '%Y-%c-%d %H-%i' ) dd, count(1)
+					FROM
+						t_td_rf_autotask_info rast
+					WHERE
+						rast.PROCESS_STATUS = 10
+					AND rast.SHOP_ID IN (11502,11501,11499,176706,176704,11498,11497,176705,176703,11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707)
+					GROUP BY dd ;
+
+
+SELECT count(1) from t_td_rf_autotask_info where SHOP_ID IN (11502,11501,11499,176706,176704,11498,11497,176705,176703,
+11495,11496,176701,176700,176702,11500,11494,11493,326725,326726,176707)
+and RETRY_DATE < '2020:09:12 19:30:00' and RETRY_DATE > '2020:09:12 19:29:00' and PROCESS_STATUS = 66;
+
+SELECT * from t_send_pacs_mq_msg t  limit 1;
